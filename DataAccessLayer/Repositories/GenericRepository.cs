@@ -3,6 +3,7 @@ using DataAccessLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,6 +33,11 @@ namespace DataAccessLayer.Repositories
         {
             _db.Add(t);
             _db.SaveChanges();
+        }
+
+        public List<T> GetListAll(Expression<Func<T, bool>> filter)
+        {
+           return _db.Set<T>().Where(filter).ToList();
         }
 
         public void Update(T t)
